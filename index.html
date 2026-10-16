@@ -119,7 +119,7 @@ function calculate(){
  window.currentSummary='Estimated Express Entry CRS score under the new rules effective November 3, 2026: '+total+'\n'+rows.map(([n,v])=>n+': '+v).join('\n')+'\nIndependent estimate; verify with IRCC.';
 }
 document.querySelectorAll('select').forEach(el=>el.addEventListener('change',calculate));
-['monthsTier1','monthsTier2','monthsTier3','offerNocCode'].forEach(id=>$(id).addEventListener('input',calculate));
+['canMonths','monthsTier1','monthsTier2','monthsTier3','offerNocCode'].forEach(id=>$(id).addEventListener('input',calculate));
 $('copyBtn').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(window.currentSummary);$('copyStatus').textContent='Summary copied.'}catch(e){$('copyStatus').textContent='Copy was blocked by your browser. Select the score and copy manually.'}});
 $('resetBtn').addEventListener('click',()=>{document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);['canMonths','monthsTier1','monthsTier2','monthsTier3'].forEach(id=>$(id).value='0');$('offerNocCode').value='';$('age').value='35';['first','second','sp'].forEach(prefix=>['Read','Write','Speak','Listen'].forEach(suffix=>$(prefix+suffix).value=prefix==='first'?9:3));$('copyStatus').textContent='';calculate()});
 calculate();
