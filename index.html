@@ -175,7 +175,7 @@ function updateLabourStatus(sp,can,canMonths){
  const offerConfirmed=val('jobOfferStatus')===1;
  const nocStatus=$('offerNocStatus');
  if(!offerCode) nocStatus.textContent='Enter your 5-digit NOC to check whether the occupation is on the eligible list.';
- else if(!/^\\d{5}$/.test(offerCode)) nocStatus.textContent='A Canadian NOC code should contain exactly 5 digits.';
+ else if(!/^\d{5}$/.test(offerCode)) nocStatus.textContent='A Canadian NOC code should contain exactly 5 digits.';
  else if(!offerTier) nocStatus.textContent='Not found on this calculator’s eligible occupation list. This NOC currently adds 0 job-offer points here; double-check the code and IRCC list.';
  else nocStatus.textContent='Listed as Level '+offerTier+' on the eligible occupation list. Potential job-offer points: '+[0,50,70,100][offerTier]+'. This does not confirm that your specific offer qualifies.';
  const offerPath=offerConfirmed&&/^\d{5}$/.test(offerCode)&&offerTier?[0,50,70,100][offerTier]:0;
