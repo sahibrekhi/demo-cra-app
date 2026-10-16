@@ -8,6 +8,8 @@ Open `index.html` in a modern browser. No build tools or dependencies are requir
 
 ## Deploy with GitHub Pages
 
+The deployment workflow attempts to enable GitHub Pages automatically before publishing.
+
 A GitHub Actions workflow is included at `.github/workflows/pages.yml`. In repository **Settings → Pages**, select **GitHub Actions** as the build and deployment source if it is not already selected. Then check the **Actions** tab for the deployment result.
 
 Expected site URL: https://sahibrekhi.github.io/demo-cra-app/
