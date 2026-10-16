@@ -138,13 +138,20 @@ footer{border-top-color:#25364a;color:#9aabc1;background:rgba(12,23,38,.75)}
 <div class="field"><label for="spEdu">Spouse education</label><select id="spEdu"><option value="0">Less than secondary school</option><option value="1">Secondary school</option><option value="2">One-year post-secondary</option><option value="3">Two-year post-secondary</option><option value="4">Bachelor's / 3+ year credential</option><option value="5">Two or more credentials (one 3+ years)</option><option value="6">Master's / professional degree</option><option value="7">Doctoral degree</option></select></div><div class="field full"><label>Spouse first official language (enter each ability separately)</label><div class="fields"><div class="field"><label for="spRead">Reading</label><select id="spRead"><option value="3">CLB 4 or lower</option><option value="5">CLB 5–6</option><option value="7">CLB 7–8</option><option value="9">CLB 9+</option></select></div><div class="field"><label for="spWrite">Writing</label><select id="spWrite"><option value="3">CLB 4 or lower</option><option value="5">CLB 5–6</option><option value="7">CLB 7–8</option><option value="9">CLB 9+</option></select></div><div class="field"><label for="spSpeak">Speaking</label><select id="spSpeak"><option value="3">CLB 4 or lower</option><option value="5">CLB 5–6</option><option value="7">CLB 7–8</option><option value="9">CLB 9+</option></select></div><div class="field"><label for="spListen">Listening</label><select id="spListen"><option value="3">CLB 4 or lower</option><option value="5">CLB 5–6</option><option value="7">CLB 7–8</option><option value="9">CLB 9+</option></select></div></div><small>Use the CLB/NCLC equivalency for each test ability, not the average or lowest score for all four.</small></div>
 <div class="field"><label for="spWork">Spouse Canadian work experience</label><select id="spWork"><option value="0">None</option><option value="1">1 year</option><option value="2">2 years</option><option value="3">3 years</option><option value="4">4 years</option><option value="5">5 years or more</option></select></div>
 </div><p class="hint">Spouse points apply only when you select an accompanying spouse above.</p></div>
-<div class="panel"><h2>3. New labour-market integration factor</h2><p class="hint">This section applies from November 3, 2026. Your personal salary does not determine an occupation's level. Use IRCC's list and enter qualifying Canadian work experience by the level of each eligible occupation. Count only qualifying work in Canada. Enter full-time-equivalent months (12 months = 1,560 hours); do not double-count overlapping jobs, and count concurrent work only up to 30 hours per week in total.</p><div class="fields">
-<div class="field"><label for="monthsTier3">Full-time-equivalent months in Level 3 occupations</label><input id="monthsTier3" type="number" min="0" max="600" step="1" value="0"><small>Level 3: occupation median at least 2× the overall Canadian workforce median.</small></div>
-<div class="field"><label for="monthsTier2">Full-time-equivalent months in Level 2 occupations</label><input id="monthsTier2" type="number" min="0" max="600" step="1" value="0"><small>Level 2: at least 1.5× but below 2× the overall Canadian workforce median.</small></div>
-<div class="field"><label for="monthsTier1">Full-time-equivalent months in Level 1 occupations</label><input id="monthsTier1" type="number" min="0" max="600" step="1" value="0"><small>Level 1: at least 1.3× but below 1.5× the overall Canadian workforce median. Experience may be combined across eligible occupations.</small></div>
-<div class="field full"><label for="offerNocCode">Do you have a qualifying job offer? Start with its NOC code</label><input id="offerNocCode" inputmode="numeric" maxlength="5" placeholder="Enter 5-digit NOC code, e.g. 21232" aria-describedby="offerNocStatus"><small>Not sure of your NOC? <a href="https://noc.esdc.gc.ca/" target="_blank" rel="noopener">Find your NOC by job duties ↗</a>. Then check it against <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score/high-wage.html" target="_blank" rel="noopener">IRCC's eligible occupation list ↗</a>.</small><p class="hint" id="offerNocStatus" aria-live="polite">Enter your 5-digit NOC to check whether the occupation is on the eligible list.</p></div>
-<div class="field full"><label for="jobOfferStatus">Have you checked that the job offer itself meets IRCC's rules?</label><select id="jobOfferStatus"><option value="0">Not sure yet / no qualifying offer</option><option value="1">Yes — I checked the offer requirements</option></select><small>A listed NOC is only the first check. The offer must also meet Express Entry's validity and genuineness requirements. You do not need to decide based on LMIA status alone.</small></div>
-<div class="field full"><p class="hint" id="labourStatus" aria-live="polite">Your result will update as you enter your details. Canadian work experience and a qualifying job offer are compared; their points are not added together.</p></div>
+<div class="panel"><h2>3. New labour-market integration factor</h2>
+<p class="hint">This section starts November 3, 2026. Your own salary does not determine the NOC level. First choose your NOC code from the dropdowns; then answer the simple questions. Count only qualifying Canadian work experience. One year means 12 months or 1,560 hours.</p>
+<div class="fields">
+<div class="field full"><label for="workNocCode">What is the NOC code for your Canadian work experience?</label><select id="workNocCode"><option value="">Choose a NOC code (optional)</option></select><small>Choose the code that matches your actual job duties, not just your job title. <a href="https://noc.esdc.gc.ca/" target="_blank" rel="noopener">Find your NOC by job duties ↗</a></small><p class="hint" id="workNocStatus" aria-live="polite">Choose a NOC to see whether it is on the eligible high-wage list.</p></div>
+<div class="field"><label for="workNocMonths">How many months of qualifying Canadian work experience do you have in this NOC?</label><input id="workNocMonths" type="number" min="0" max="600" step="1" value="0"><small>Only work that meets Express Entry's Canadian work-experience rules counts. Do not count overlapping hours twice.</small></div>
+<div class="field full"><label for="multipleNocs">Did you gain qualifying Canadian work experience in more than one eligible high-wage NOC?</label><select id="multipleNocs"><option value="0">No — use the NOC and months entered above</option><option value="1">Yes — I need to combine months across NOCs</option></select><small>If yes, enter the combined full-time-equivalent months by level below. Count each month only once.</small></div>
+<div id="combinedNocMonths" class="fields full" hidden>
+<div class="field"><label for="monthsTier3">Combined months in Level 3 occupations</label><input id="monthsTier3" type="number" min="0" max="600" step="1" value="0"><small>Level 3: at least 2× the overall Canadian workforce median.</small></div>
+<div class="field"><label for="monthsTier2">Combined months in Level 2 occupations</label><input id="monthsTier2" type="number" min="0" max="600" step="1" value="0"><small>Level 2: at least 1.5× but below 2× the overall median.</small></div>
+<div class="field"><label for="monthsTier1">Combined months in Level 1 occupations</label><input id="monthsTier1" type="number" min="0" max="600" step="1" value="0"><small>Level 1: at least 1.3× but below 1.5× the overall median.</small></div>
+</div>
+<div class="field full"><label for="offerNocCode">Do you have a job offer from your employer?</label><select id="offerNocCode"><option value="">Choose the NOC code for the offered job (optional)</option></select><small>LMIA-exempt status alone does not decide eligibility. From November 3, 2026, an LMIA is not required for these points, but the offer must still meet IRCC's validity and genuineness requirements.</small><p class="hint" id="offerNocStatus" aria-live="polite">Choose the offered job's NOC code to check the potential points.</p></div>
+<div class="field full"><label for="jobOfferStatus">Does your job offer meet IRCC's job-offer requirements?</label><select id="jobOfferStatus"><option value="0">I'm not sure / haven't confirmed this</option><option value="1">Yes — the offer meets IRCC's requirements</option></select><small>Generally, it must be genuine, full-time and continuous, and for at least one year after you become a permanent resident. Check the official rules below.</small></div>
+<div class="field full"><p class="hint" id="labourStatus" aria-live="polite">The calculator compares your Canadian-work route with your job-offer route and uses the higher score. It never adds both routes together.</p></div>
 </div></div>
 </section>
 <aside class="result"><div class="scorecard"><div class="label" id="ruleLabel">Estimated CRS score · new rules from Nov 3, 2026</div><div class="score" id="total">0</div><div class="meter"><span id="meter"></span></div><p class="label" id="scoreNote">Estimated score under the announced November 2026 rules; verify with IRCC.</p></div>
@@ -160,34 +167,42 @@ const eligibleNocs={
 1:"00010 11100 11101 11102 11109 11200 12201 12203 21101 21110 21112 21200 21201 21203 21234 22214 22232 22233 22310 22313 31121 32102 32103 32120 32121 32122 41300 41400 41403 41405 41409 43201 43203 50012 51101 51102 51111 51112 51120 52112 60020 60031 60040 72010 72013 72014 72020 72021 72102 72105 72201 72302 72320 72321 72401 72403 72404 72500 72602 72603 73311 82010 83100 83120 92010 93102"
 };
 const nocTier=new Map();for(const [tier,codes] of Object.entries(eligibleNocs))for(const code of codes.split(/\s+/))nocTier.set(code,Number(tier));
+function populateNocDropdowns(){
+ const options=Object.keys(nocTier).sort().map(code=>'<option value="'+code+'">'+code+' — Level '+nocTier.get(code)+' eligible occupation</option>').join('');
+ ['workNocCode','offerNocCode'].forEach(id=>{const el=$(id);if(el)el.insertAdjacentHTML('beforeend',options)});
+}
+populateNocDropdowns();
+$('multipleNocs').addEventListener('change',()=>{$('combinedNocMonths').hidden=$('multipleNocs').value!=='1';calculate()});
 function updateLabourStatus(sp,can,canMonths){
- const months3=Math.max(0,Math.floor(Number($('monthsTier3').value)||0));
- const months2=Math.max(0,Math.floor(Number($('monthsTier2').value)||0));
- const months1=Math.max(0,Math.floor(Number($('monthsTier1').value)||0));
+ const multiple=$('multipleNocs').value==='1';
+ const workCode=$('workNocCode').value;
+ const workTier=nocTier.get(workCode)||0;
+ const workMonths=Math.max(0,Math.floor(Number($('workNocMonths').value)||0));
+ let months3=multiple?Math.max(0,Math.floor(Number($('monthsTier3').value)||0)):(workTier===3?workMonths:0);
+ let months2=multiple?Math.max(0,Math.floor(Number($('monthsTier2').value)||0)):(workTier===2?workMonths:0);
+ let months1=multiple?Math.max(0,Math.floor(Number($('monthsTier1').value)||0)):(workTier===1?workMonths:0);
  const totalHighWageMonths=months3+months2+months1;
  const durationInconsistent=totalHighWageMonths>canMonths;
  const bonus=durationInconsistent?0:(months3>=12?70:(months3+months2>=12?40:(totalHighWageMonths>=12?20:0)));
- const workLength=canWorkPoints(can,sp);
- const cap=sp?140:150;
- const workPath=Math.min(cap,workLength+bonus);
- const offerCode=$('offerNocCode').value.trim();
- const offerTier=nocTier.get(offerCode)||0;
- const offerConfirmed=val('jobOfferStatus')===1;
- const nocStatus=$('offerNocStatus');
- if(!offerCode) nocStatus.textContent='Enter your 5-digit NOC to check whether the occupation is on the eligible list.';
- else if(!/^\d{5}$/.test(offerCode)) nocStatus.textContent='A Canadian NOC code should contain exactly 5 digits.';
- else if(!offerTier) nocStatus.textContent='Not found on this calculator’s eligible occupation list. This NOC currently adds 0 job-offer points here; double-check the code and IRCC list.';
- else nocStatus.textContent='Listed as Level '+offerTier+' on the eligible occupation list. Potential job-offer points: '+[0,50,70,100][offerTier]+'. This does not confirm that your specific offer qualifies.';
- const offerPath=offerConfirmed&&/^\d{5}$/.test(offerCode)&&offerTier?[0,50,70,100][offerTier]:0;
- const points=Math.max(workPath,offerPath);
+ const workLength=canWorkPoints(can,sp),cap=sp?140:150,workPath=Math.min(cap,workLength+bonus);
+ const offerCode=$('offerNocCode').value.trim(),offerTier=nocTier.get(offerCode)||0,offerConfirmed=val('jobOfferStatus')===1;
+ const workStatus=$('workNocStatus'),nocStatus=$('offerNocStatus');
+ if(!workCode)workStatus.textContent='Choose your Canadian work NOC to see whether it qualifies for the high-wage bonus.';
+ else if(!workTier)workStatus.textContent='This NOC is not on the current eligible high-wage list. Your regular Canadian work-duration points may still count.';
+ else workStatus.textContent='This NOC is listed as Level '+workTier+'. '+(workTier===3?'Potential bonus: 70 points after 12 qualifying months.':workTier===2?'Potential bonus: 40 points after 12 qualifying months in Level 2/3 occupations.':'Potential bonus: 20 points after 12 qualifying months in eligible high-wage occupations.')+' Your own salary does not change its level.';
+ if(!offerCode)nocStatus.textContent='Choose the offered job’s NOC to see potential job-offer points.';
+ else if(!offerTier)nocStatus.textContent='This NOC is not on the current eligible high-wage list, so it adds 0 job-offer points under this factor. Verify the code and IRCC list.';
+ else nocStatus.textContent='Listed as Level '+offerTier+'. Potential job-offer points: '+[0,50,70,100][offerTier]+'. This checks the occupation only; the offer must also qualify.';
+ const offerPath=offerConfirmed&&offerTier?[0,50,70,100][offerTier]:0,points=Math.max(workPath,offerPath);
  const pathway=offerPath>workPath?'Qualifying job offer':workPath>offerPath?'Canadian work experience':points?'Both pathways tie':'Neither pathway adds points';
- let message=durationInconsistent?'Check your inputs: high-wage occupation months exceed the selected total Canadian work-experience duration. The high-wage bonus is not counted until corrected. ':'';
- message+='Canadian-work pathway: '+workLength+' work-duration points + '+bonus+' high-wage bonus = '+workPath+'. ';
- if(offerConfirmed&&!offerCode)message+='You marked the offer as qualifying but have not entered its NOC code; offer points cannot be assessed and are treated as 0. ';
- else if(offerCode&&(!/^\d{5}$/.test(offerCode)||!offerTier))message+='The job-offer NOC is not on IRCC’s eligible high-wage list, so its offer points are 0. ';
- else if(offerConfirmed)message+='Qualifying job-offer pathway: '+offerPath+' points. ';
- else message+='Job-offer pathway: 0 points (not confirmed as qualifying). ';
- message+='Selected pathway: '+pathway+'. Labour-market factor: '+points+' points. Pathways are not combined.';
+ let message=durationInconsistent?'Check your inputs: eligible high-wage months exceed your total qualifying Canadian work experience. The high-wage bonus is not counted until corrected. ':'';
+ message+='Canadian-work route: '+workLength+' duration points + '+bonus+' high-wage bonus = '+workPath+'. ';
+ if(!workTier&&workMonths>0&&!multiple)message+='The selected Canadian-work NOC is not eligible for a high-wage bonus, but regular Canadian work-duration points can still count. ';
+ if(offerConfirmed&&!offerCode)message+='You confirmed a qualifying offer but have not selected its NOC, so offer points cannot be assessed. ';
+ else if(offerCode&&!offerTier)message+='The selected offer NOC is not eligible for job-offer points under this factor. ';
+ else if(offerConfirmed)message+='Job-offer route: '+offerPath+' points. ';
+ else message+='Job-offer route: 0 points because the offer has not been confirmed as qualifying. ';
+ message+='Selected route: '+pathway+'. Labour-market factor: '+points+' points. The routes are not combined.';
  $('labourStatus').textContent=message;
  return {points,pathway,workPath,offerPath,bonus};
 }
@@ -232,8 +247,9 @@ function calculate(){
  window.currentSummary='Estimated Express Entry CRS score under the new rules effective November 3, 2026: '+total+'\n'+rows.map(([n,v])=>n+': '+v).join('\n')+'\nIndependent estimate; verify with IRCC.';
 }
 document.querySelectorAll('select').forEach(el=>el.addEventListener('change',calculate));
-['canMonths','monthsTier1','monthsTier2','monthsTier3','offerNocCode'].forEach(id=>$(id).addEventListener('input',calculate));
+['canMonths','workNocMonths','monthsTier1','monthsTier2','monthsTier3'].forEach(id=>$(id).addEventListener('input',calculate));
+['workNocCode','offerNocCode'].forEach(id=>$(id).addEventListener('change',calculate));
 $('copyBtn').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(window.currentSummary);$('copyStatus').textContent='Summary copied.'}catch(e){$('copyStatus').textContent='Copy was blocked by your browser. Select the score and copy manually.'}});
-$('resetBtn').addEventListener('click',()=>{document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);['canMonths','monthsTier1','monthsTier2','monthsTier3'].forEach(id=>$(id).value='0');$('offerNocCode').value='';$('age').value='35';['first','second','sp'].forEach(prefix=>['Read','Write','Speak','Listen'].forEach(suffix=>$(prefix+suffix).value=prefix==='first'?9:3));$('copyStatus').textContent='';calculate()});
+$('resetBtn').addEventListener('click',()=>{document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);['canMonths','workNocMonths','monthsTier1','monthsTier2','monthsTier3'].forEach(id=>$(id).value='0');$('combinedNocMonths').hidden=true;$('age').value='35';['first','second','sp'].forEach(prefix=>['Read','Write','Speak','Listen'].forEach(suffix=>$(prefix+suffix).value=prefix==='first'?9:3));$('copyStatus').textContent='';calculate()});
 calculate();
 </script></body></html>
