@@ -141,7 +141,7 @@ footer{border-top-color:#25364a;color:#9aabc1;background:rgba(12,23,38,.75)}
 <div class="panel"><h2>3. New labour-market integration factor</h2>
 <p class="hint">This section starts November 3, 2026. Your own salary does not determine the NOC level. First choose your NOC code from the dropdowns; then answer the simple questions. Count only qualifying Canadian work experience. One year means 12 months or 1,560 hours.</p>
 <div class="fields">
-<div class="field full"><label for="workNocCode">What is the NOC code for your Canadian work experience?</label><select id="workNocCode"><option value="">Choose a NOC code (optional)</option></select><small>Choose the code that matches your actual job duties, not just your job title. <a href="https://noc.esdc.gc.ca/" target="_blank" rel="noopener">Find your NOC by job duties ↗</a></small><p class="hint" id="workNocStatus" aria-live="polite">Choose a NOC to see whether it is on the eligible high-wage list.</p></div>
+<div class="field full"><label for="workNocCode">What is the NOC code for your Canadian work experience?</label><select id="workNocCode"><option value="">Choose a NOC code (optional)</option></select><small>Choose the code that best matches your actual job duties, not just your job title. This quick list currently includes two common IT NOCs; <a href="https://noc.esdc.gc.ca/" target="_blank" rel="noopener">find your NOC by job duties ↗</a>.</small><p class="hint" id="workNocStatus" aria-live="polite">Choose a NOC to see whether it is on the eligible high-wage list.</p></div>
 <div class="field"><label for="workNocMonths">How many months of qualifying Canadian work experience do you have in this NOC?</label><input id="workNocMonths" type="number" min="0" max="600" step="1" value="0"><small>Only work that meets Express Entry's Canadian work-experience rules counts. Do not count overlapping hours twice.</small></div>
 <div class="field full"><label for="multipleNocs">Did you gain qualifying Canadian work experience in more than one eligible high-wage NOC?</label><select id="multipleNocs"><option value="0">No — use the NOC and months entered above</option><option value="1">Yes — I need to combine months across NOCs</option></select><small>If yes, enter the combined full-time-equivalent months by level below. Count each month only once.</small></div>
 <div id="combinedNocMonths" class="fields full" hidden>
@@ -168,7 +168,13 @@ const eligibleNocs={
 };
 const nocTier=new Map();for(const [tier,codes] of Object.entries(eligibleNocs))for(const code of codes.split(/\s+/))nocTier.set(code,Number(tier));
 function populateNocDropdowns(){
- const options=Object.keys(nocTier).sort().map(code=>'<option value="'+code+'">'+code+' — Level '+nocTier.get(code)+' eligible occupation</option>').join('');
+ // Keep the initial list focused on the two requested software/IT NOCs.
+ // The full eligible-NOC tier map above is retained for scoring logic.
+ const labels={
+  "21232":"Software developers and programmers",
+  "21222":"Information systems specialists"
+ };
+ const options=["21232","21222"].map(code=>'<option value="'+code+'">'+code+' ('+labels[code]+') — Level '+nocTier.get(code)+'</option>').join('');
  ['workNocCode','offerNocCode'].forEach(id=>{const el=$(id);if(el)el.insertAdjacentHTML('beforeend',options)});
 }
 populateNocDropdowns();
