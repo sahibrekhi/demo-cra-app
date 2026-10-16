@@ -5,12 +5,80 @@
 <meta name="description" content="Estimate your Canadian Express Entry CRS score under the new rules announced for November 3, 2026.">
 <title>Express Entry CRS Calculator · New 2026 Rules</title>
 <style>
-:root{color-scheme:light;--ink:#182230;--muted:#596579;--line:#d9e0e8;--paper:#fff;--bg:#f4f7fb;--blue:#1458a6;--blue2:#e9f2ff;--green:#176b48;--amber:#805400}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}header{background:#102d50;color:#fff;padding:32px 18px}header .wrap,main{max-width:1050px;margin:auto}header h1{font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.15;margin:0 0 12px}header p{max-width:760px;color:#dce8f7;margin:0}.wrap{padding:0 16px}main{padding:22px 16px 48px}.notice{background:#fff7df;border:1px solid #f0d58b;border-radius:12px;padding:14px 16px;margin-bottom:18px;color:#533d08}.mode{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.mode button,.btn{border:1px solid var(--line);background:white;color:var(--ink);padding:10px 14px;border-radius:9px;cursor:pointer;font:inherit;font-weight:650}.mode button.active,.btn.primary{background:var(--blue);border-color:var(--blue);color:white}.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.8fr);gap:18px;align-items:start}.panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}.panel h2{font-size:1.15rem;margin:0 0 15px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{min-width:0}.field.full{grid-column:1/-1}label{display:block;font-size:.9rem;font-weight:650;margin-bottom:5px}select,input{width:100%;padding:10px;border:1px solid #bbc6d4;border-radius:8px;background:#fff;color:var(--ink);font:inherit}small,.hint{display:block;color:var(--muted);font-size:.8rem;margin-top:4px}.check{display:flex;align-items:flex-start;gap:9px}.check input{width:auto;margin-top:5px}.result{position:sticky;top:14px}.scorecard{background:#102d50;color:#fff;border-radius:14px;padding:22px}.scorecard .label{color:#cfe0f5;font-size:.9rem}.score{font-size:3.3rem;font-weight:800;letter-spacing:-2px;line-height:1.1;margin:5px 0 12px}.meter{height:9px;border-radius:99px;background:#36506c;overflow:hidden}.meter span{display:block;height:100%;width:0;background:#7bd5a7;transition:width .2s}.subscore{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem}.subscore:last-child{border:0}.subscore strong{font-variant-numeric:tabular-nums}.result h2{margin-top:0}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.disclaimer{font-size:.87rem;color:var(--muted)}a{color:var(--blue)}footer{border-top:1px solid var(--line);padding:20px 16px;color:var(--muted);font-size:.85rem}details{margin-top:12px}summary{cursor:pointer;font-weight:650}.pill{display:inline-block;padding:3px 8px;border-radius:99px;background:var(--blue2);color:#154a86;font-size:.78rem;font-weight:700;margin-bottom:8px}@media(max-width:760px){.layout{grid-template-columns:1fr}.result{position:static}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:16px}.score{font-size:2.8rem}}
+:root{color-scheme:light;--ink:#142338;--muted:#5e6d80;--line:#dce4ee;--paper:#fff;--bg:#f3f6fb;--navy:#102d50;--blue:#1768c4;--blue-dark:#104f98;--blue-soft:#edf5ff;--green:#157347;--amber:#805400;--shadow:0 12px 35px rgba(20,45,80,.07)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:radial-gradient(ellipse at 80% 0%,rgba(212,230,255,.5),transparent 34rem),var(--bg);color:var(--ink);font:16px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+header{position:relative;overflow:hidden;background:linear-gradient(120deg,#0c2442 0%,#123d6b 62%,#1768a9 100%);color:#fff;padding:54px 20px 60px}
+header:after{content:"";position:absolute;width:430px;height:430px;right:-110px;top:-245px;border:1px solid rgba(255,255,255,.12);border-radius:50%;box-shadow:0 0 0 45px rgba(255,255,255,.035),0 0 0 95px rgba(255,255,255,.025);pointer-events:none}
+header .wrap,main{max-width:1180px;margin:auto;position:relative;z-index:1}
+header .wrap{padding:0 18px}
+header .eyebrow{display:inline-flex;align-items:center;gap:8px;margin:0 0 17px;color:#c6e0ff;font-size:.78rem;font-weight:800;letter-spacing:.11em;text-transform:uppercase}
+header .eyebrow:before{content:"";width:8px;height:8px;border-radius:50%;background:#7de0b1;box-shadow:0 0 0 4px rgba(125,224,177,.14)}
+header h1{max-width:760px;font-size:clamp(2rem,4.2vw,3.25rem);line-height:1.08;letter-spacing:-.045em;margin:0 0 18px;font-weight:800}
+header p{max-width:740px;color:#d9e8fa;margin:0;font-size:1.08rem;line-height:1.7}
+.wrap{padding:0 16px}
+main{padding:28px 18px 60px}
+.notice{position:relative;background:#fff8e6;border:1px solid #f0d99c;border-left:4px solid #d9a52b;border-radius:12px;padding:15px 18px;margin-bottom:22px;color:#5c4613;box-shadow:0 3px 10px rgba(99,76,21,.035)}
+.notice strong{color:#3f300d}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:7px 11px;border-radius:99px;background:#e5f7ed;color:#176542;font-size:.78rem;font-weight:800;letter-spacing:.015em;margin:0 0 18px}
+.pill:before{content:"";width:7px;height:7px;background:#1e9a62;border-radius:50%}
+.layout{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(300px,.8fr);gap:22px;align-items:start}
+.panel{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:var(--shadow)}
+.panel h2{font-size:1.12rem;line-height:1.35;letter-spacing:-.015em;margin:0 0 20px;display:flex;align-items:center;gap:11px}
+section>.panel h2{padding-bottom:15px;border-bottom:1px solid #edf1f6}
+section>.panel h2:before{counter-increment:section;content:counter(section);display:inline-grid;place-items:center;flex:0 0 30px;width:30px;height:30px;border-radius:9px;background:var(--blue-soft);color:var(--blue);font-size:.83rem;font-weight:850}
+section{counter-reset:section}
+.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:19px 16px}
+.field{min-width:0}
+.field.full{grid-column:1/-1}
+label{display:block;font-size:.875rem;font-weight:700;line-height:1.4;margin-bottom:7px;color:#273a51}
+select,input{display:block;width:100%;min-height:45px;padding:10px 12px;border:1px solid #c8d3e0;border-radius:10px;background:#fff;color:var(--ink);font:inherit;font-size:.94rem;transition:border-color .16s,box-shadow .16s,background .16s}
+select{padding-right:32px}
+select:hover,input:hover{border-color:#9aacc2}
+select:focus-visible,input:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid rgba(23,104,196,.3);outline-offset:2px;border-color:var(--blue)}
+small,.hint{display:block;color:var(--muted);font-size:.8rem;line-height:1.55;margin-top:7px}
+.field .fields{gap:14px 12px}
+.field .field label{font-size:.82rem;color:#4b5c71}
+.check{display:flex;align-items:flex-start;gap:9px}
+.check input{width:auto;margin-top:5px}
+.result{position:sticky;top:16px}
+.scorecard{position:relative;overflow:hidden;background:linear-gradient(145deg,#102d50 0%,#174b7d 100%);color:#fff;border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:25px 25px 24px;margin-bottom:18px;box-shadow:0 18px 38px rgba(16,45,80,.2)}
+.scorecard:after{content:"";position:absolute;width:220px;height:220px;right:-95px;top:-120px;border-radius:50%;border:1px solid rgba(255,255,255,.14);box-shadow:0 0 0 28px rgba(255,255,255,.035),0 0 0 60px rgba(255,255,255,.025);pointer-events:none}
+.scorecard .label{position:relative;z-index:1;color:#d3e4f7;font-size:.86rem}
+.score{position:relative;z-index:1;font-size:clamp(3.2rem,5vw,4rem);font-weight:850;letter-spacing:-.065em;line-height:1.08;margin:13px 0 20px;font-variant-numeric:tabular-nums}
+.meter{height:8px;border-radius:99px;background:rgba(255,255,255,.18);overflow:hidden}
+.meter span{display:block;height:100%;width:0;background:linear-gradient(90deg,#73e0ac,#b4f3cd);border-radius:99px;transition:width .25s ease}
+.scorecard #scoreNote{margin:14px 0 0;line-height:1.6}
+.result .panel{padding:22px}
+.result .panel h2{margin-bottom:15px}
+.subscore{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;padding:12px 0;border-bottom:1px solid #edf1f6;font-size:.88rem;line-height:1.45}
+.subscore:first-child{padding-top:2px}
+.subscore:last-child{border:0}
+.subscore span{color:#4c5d72}
+.subscore strong{font-variant-numeric:tabular-nums;font-size:.95rem;color:#142f4d;white-space:nowrap}
+.btnrow{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+.mode button,.btn{border:1px solid #cdd8e5;background:white;color:var(--ink);padding:10px 14px;border-radius:10px;cursor:pointer;font:inherit;font-size:.88rem;font-weight:750;transition:transform .15s,background .15s,border-color .15s,box-shadow .15s}
+.mode button:hover,.btn:hover{border-color:#8ca9cb;background:#f7faff}
+.btn:active{transform:translateY(1px)}
+.mode button.active,.btn.primary{background:var(--blue);border-color:var(--blue);color:white;box-shadow:0 5px 12px rgba(23,104,196,.18)}
+.btn.primary:hover{background:var(--blue-dark)}
+.disclaimer{font-size:.82rem;line-height:1.6;color:var(--muted);margin-bottom:0}
+.result .panel p{font-size:.88rem;margin:10px 0}
+a{color:#145ea9;text-decoration-thickness:1px;text-underline-offset:3px}
+a:hover{color:#0b417b}
+details{margin-top:14px;border-top:1px solid #edf1f6;padding-top:13px}
+summary{cursor:pointer;font-weight:700;font-size:.9rem}
+footer{border-top:1px solid #dfe6ef;padding:22px 16px;color:var(--muted);font-size:.83rem;background:rgba(255,255,255,.55)}
+footer .wrap{max-width:1180px;margin:auto}
+@media(max-width:900px){.layout{grid-template-columns:minmax(0,1fr) minmax(270px,.78fr);gap:14px}.panel{padding:20px}.scorecard{padding:22px}}
+@media(max-width:760px){header{padding:40px 14px 44px}header .wrap{padding:0 8px}header h1{font-size:2.15rem}header p{font-size:1rem}main{padding:20px 13px 40px}.layout{grid-template-columns:1fr;gap:0}.result{position:static;display:grid;grid-template-columns:1fr;gap:0}.fields{grid-template-columns:1fr;gap:16px}.field.full{grid-column:auto}.field .fields{grid-template-columns:repeat(2,minmax(0,1fr));gap:13px 10px}.panel{padding:18px;border-radius:15px;margin-bottom:14px}.panel h2{margin-bottom:17px}.scorecard{border-radius:17px}.score{font-size:3.4rem}.notice{font-size:.92rem;padding:13px 14px}}
+@media(max-width:380px){.field .fields{grid-template-columns:1fr}.btnrow .btn{flex:1}.scorecard{padding:20px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body>
-<header><div class="wrap"><h1>Express Entry CRS Score Calculator</h1><p>Estimate your Comprehensive Ranking System score under the new labour-market integration rules scheduled to take effect November 3, 2026.</p></div></header>
+<header><div class="wrap"><p class="eyebrow">Canada immigration · CRS estimator</p><h1>Express Entry CRS Score Calculator</h1><p>Estimate your Comprehensive Ranking System score under the new labour-market integration rules scheduled to take effect November 3, 2026.</p></div></header>
 <main>
 <div class="notice"><strong>Important:</strong> This is an independent estimate, not an IRCC tool or immigration advice. The November 3, 2026 rules are shown as announced; confirm details with IRCC before making decisions. Your official score may differ.</div>
 <div class="pill">New rules · effective November 3, 2026</div>
