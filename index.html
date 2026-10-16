@@ -139,7 +139,7 @@ footer{border-top-color:#25364a;color:#9aabc1;background:rgba(12,23,38,.75)}
 <div class="field"><label for="spWork">Spouse Canadian work experience</label><select id="spWork"><option value="0">None</option><option value="1">1 year</option><option value="2">2 years</option><option value="3">3 years</option><option value="4">4 years</option><option value="5">5 years or more</option></select></div>
 </div><p class="hint">Spouse points apply only when you select an accompanying spouse above.</p></div>
 <div class="panel"><h2>3. New labour-market integration factor</h2>
-<p class="hint">This section starts November 3, 2026. Your own salary does not determine the NOC level. First choose your NOC code from the dropdowns; then answer the simple questions. Count only qualifying Canadian work experience. One year means 12 months or 1,560 hours.</p>
+<p class="hint">These announced rules start November 3, 2026. Important: qualifying Canadian work experience in any TEER 0–3 occupation can earn work-length points. Extra high-wage bonus points are only for Canadian work in occupations on IRCC's eligible high-wage list; TEER 0–3 status alone does not qualify you for that bonus. The NOC's level is based on the occupation's Canadian median wage, not your personal salary. One year means 12 months or 1,560 qualifying hours. <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score/high-wage.html" target="_blank" rel="noopener">Check IRCC's eligible list and rules ↗</a></p>
 <div class="fields">
 <div class="field full"><label for="workNocCode">What is the NOC code for your Canadian work experience?</label><select id="workNocCode"><option value="">Choose a NOC code (optional)</option></select><small>Choose the code that best matches your actual job duties, not just your job title. This quick list currently includes two common IT NOCs; <a href="https://noc.esdc.gc.ca/" target="_blank" rel="noopener">find your NOC by job duties ↗</a>.</small><p class="hint" id="workNocStatus" aria-live="polite">Choose a NOC to see whether it is on the eligible high-wage list.</p></div>
 <div class="field"><label for="workNocMonths">How many months of qualifying Canadian work experience do you have in this NOC?</label><input id="workNocMonths" type="number" min="0" max="600" step="1" value="0"><small>Only work that meets Express Entry's Canadian work-experience rules counts. Do not count overlapping hours twice.</small></div>
@@ -204,7 +204,7 @@ function updateLabourStatus(sp,can,canMonths){
  const offerCode=$('offerNocCode').value.trim(),offerTier=nocTier.get(offerCode)||0,offerConfirmed=val('jobOfferStatus')===1;
  const workStatus=$('workNocStatus'),nocStatus=$('offerNocStatus');
  if(!workCode)workStatus.textContent='Choose your Canadian work NOC to see whether it qualifies for the high-wage bonus.';
- else if(!workTier)workStatus.textContent='This NOC is not on the current eligible high-wage list. Your regular Canadian work-duration points may still count.';
+ else if(!workTier)workStatus.textContent='This NOC is not on the eligible high-wage list. If your Canadian work otherwise qualifies and is in TEER 0–3, work-length points can still count; the extra high-wage bonus does not.';
  else workStatus.textContent='This NOC is listed as Level '+workTier+'. '+(workTier===3?'Potential bonus: 70 points after 12 qualifying months.':workTier===2?'Potential bonus: 40 points after 12 qualifying months in Level 2/3 occupations.':'Potential bonus: 20 points after 12 qualifying months in eligible high-wage occupations.')+' Your own salary does not change its level.';
  if(!offerCode)nocStatus.textContent='Choose the offered job’s NOC to see potential job-offer points.';
  else if(!offerTier)nocStatus.textContent='This NOC is not on the current eligible high-wage list, so it adds 0 job-offer points under this factor. Verify the code and IRCC list.';
@@ -213,7 +213,7 @@ function updateLabourStatus(sp,can,canMonths){
  const pathway=offerPath>workPath?'Qualifying job offer':workPath>offerPath?'Canadian work experience':points?'Both pathways tie':'Neither pathway adds points';
  let message=durationInconsistent?'Check your inputs: eligible high-wage months exceed your total qualifying Canadian work experience. The high-wage bonus is not counted until corrected. ':'';
  message+='Canadian-work route: '+workLength+' duration points + '+bonus+' high-wage bonus = '+workPath+'. ';
- if(!workTier&&workMonths>0&&!multiple)message+='The selected Canadian-work NOC is not eligible for a high-wage bonus, but regular Canadian work-duration points can still count. ';
+ if(!workTier&&workMonths>0&&!multiple)message+='The selected/unspecified Canadian-work NOC is not on the eligible high-wage list, so no high-wage bonus applies. Qualifying Canadian work in TEER 0–3 can still earn work-length points. ';
  if(offerConfirmed&&!offerCode)message+='You confirmed a qualifying offer but have not selected its NOC, so offer points cannot be assessed. ';
  else if(offerCode&&!offerTier)message+='The selected offer NOC is not eligible for job-offer points under this factor. ';
  else if(offerConfirmed)message+='Job-offer route: '+offerPath+' points. ';
