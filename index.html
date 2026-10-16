@@ -87,7 +87,7 @@ function secondLanguagePoints(clb){return clb<5?0:clb<=6?1:clb<=8?3:6}
 function spouseLanguagePoints(clb){return clb<5?0:clb<=6?1:clb<=8?3:5}
 function abilityLevels(prefix){return ["Read","Write","Speak","Listen"].map(suffix=>Number($(prefix+suffix).value))}
 function canWorkPoints(y,sp){const n=[0,40,53,64,72,80],s=[0,35,46,56,63,70];return (sp?s:n)[y]||0}
-function spouseEdu(e){return [0,0,2,6,7,8,9,10,10][e]||0}
+function spouseEdu(e){return [0,2,6,7,8,9,10,10][e]||0}
 function spouseWork(y){return [0,5,7,8,9,10][y]||0}
 function calculate(){
  const sp=$('spouse').value==='yes',a=val('age'),edu=val('education'),can=val('canWork'),foreign=val('foreignWork');
