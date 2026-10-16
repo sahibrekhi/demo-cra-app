@@ -177,7 +177,11 @@ function syncCanadianWorkMonths(){
  const required=$('multipleNocs').value==='1'
   ?Math.max(0,Number($('monthsTier3').value)||0)+Math.max(0,Number($('monthsTier2').value)||0)+Math.max(0,Number($('monthsTier1').value)||0)
   :Math.max(0,Number($('workNocMonths').value)||0);
- if(required>Number($('canMonths').value||0))$('canMonths').value=Math.floor(required);
+ const current=Number($('canMonths').value||0);
+ if(required>current){
+  const next=required>=60?600:required>=12?Math.floor(required/12)*12:11;
+  $('canMonths').value=String(next);
+ }
 }
 function updateLabourStatus(sp,can,canMonths){
  const multiple=$('multipleNocs').value==='1';
