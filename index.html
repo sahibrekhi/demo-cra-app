@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Estimate your Canadian Express Entry CRS score under current rules and changes effective November 3, 2026.">
+<title>Express Entry CRS Score Calculator</title>
+<style>
+:root{color-scheme:light;--ink:#182230;--muted:#596579;--line:#d9e0e8;--paper:#fff;--bg:#f4f7fb;--blue:#1458a6;--blue2:#e9f2ff;--green:#176b48;--amber:#805400}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}header{background:#102d50;color:#fff;padding:32px 18px}header .wrap,main{max-width:1050px;margin:auto}header h1{font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.15;margin:0 0 12px}header p{max-width:760px;color:#dce8f7;margin:0}.wrap{padding:0 16px}main{padding:22px 16px 48px}.notice{background:#fff7df;border:1px solid #f0d58b;border-radius:12px;padding:14px 16px;margin-bottom:18px;color:#533d08}.mode{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.mode button,.btn{border:1px solid var(--line);background:white;color:var(--ink);padding:10px 14px;border-radius:9px;cursor:pointer;font:inherit;font-weight:650}.mode button.active,.btn.primary{background:var(--blue);border-color:var(--blue);color:white}.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.8fr);gap:18px;align-items:start}.panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}.panel h2{font-size:1.15rem;margin:0 0 15px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{min-width:0}.field.full{grid-column:1/-1}label{display:block;font-size:.9rem;font-weight:650;margin-bottom:5px}select,input{width:100%;padding:10px;border:1px solid #bbc6d4;border-radius:8px;background:#fff;color:var(--ink);font:inherit}small,.hint{display:block;color:var(--muted);font-size:.8rem;margin-top:4px}.check{display:flex;align-items:flex-start;gap:9px}.check input{width:auto;margin-top:5px}.result{position:sticky;top:14px}.scorecard{background:#102d50;color:#fff;border-radius:14px;padding:22px}.scorecard .label{color:#cfe0f5;font-size:.9rem}.score{font-size:3.3rem;font-weight:800;letter-spacing:-2px;line-height:1.1;margin:5px 0 12px}.meter{height:9px;border-radius:99px;background:#36506c;overflow:hidden}.meter span{display:block;height:100%;width:0;background:#7bd5a7;transition:width .2s}.subscore{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem}.subscore:last-child{border:0}.subscore strong{font-variant-numeric:tabular-nums}.result h2{margin-top:0}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.disclaimer{font-size:.87rem;color:var(--muted)}a{color:var(--blue)}footer{border-top:1px solid var(--line);padding:20px 16px;color:var(--muted);font-size:.85rem}details{margin-top:12px}summary{cursor:pointer;font-weight:650}.pill{display:inline-block;padding:3px 8px;border-radius:99px;background:var(--blue2);color:#154a86;font-size:.78rem;font-weight:700;margin-bottom:8px}@media(max-width:760px){.layout{grid-template-columns:1fr}.result{position:static}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:16px}.score{font-size:2.8rem}}
+</style>
+</head>
+<body>
+<header><div class="wrap"><h1>Express Entry CRS Score Calculator</h1><p>Estimate your Comprehensive Ranking System score, see the breakdown, and compare today's rules with the changes scheduled for November 3, 2026.</p></div></header>
+<main>
+<div class="notice"><strong>Important:</strong> This is an independent estimate, not an IRCC tool or immigration advice. The November 3, 2026 rules are shown as announced; confirm details with IRCC before making decisions. Your official score may differ.</div>
+<div class="mode" role="group" aria-label="Scoring rules"><button id="currentBtn" class="active" type="button">Current rules (Oct 16, 2026)</button><button id="futureBtn" type="button">From Nov 3, 2026</button></div>
+<div class="layout"><section>
+<div class="panel"><h2>1. Your profile</h2><div class="fields">
+<div class="field"><label for="age">Age</label><select id="age"><option value="17">17 or younger</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35" selected>35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45 or older</option></select></div>
+<div class="field"><label for="spouse">Spouse or common-law partner</label><select id="spouse"><option value="no">No / not accompanying</option><option value="yes">Yes / accompanying</option></select></div>
+<div class="field"><label for="education">Highest education</label><select id="education"><option value="0">Less than secondary school</option><option value="1">Secondary school</option><option value="2">One-year post-secondary credential</option><option value="3">Two-year post-secondary credential</option><option value="4">Bachelor's / 3+ year credential</option><option value="5">Two or more credentials (one 3+ years)</option><option value="6">Master's / professional degree</option><option value="7">Doctoral degree</option></select></div>
+<div class="field"><label for="canEdu">Canadian post-secondary education</label><select id="canEdu"><option value="0">None / not eligible</option><option value="1">1–2 year credential</option><option value="2">3+ year credential, master's or doctorate</option></select></div>
+<div class="field"><label for="canWork">Canadian skilled work experience</label><select id="canWork"><option value="0">None</option><option value="1">1 year</option><option value="2">2 years</option><option value="3">3 years</option><option value="4">4 years</option><option value="5">5 years or more</option></select></div>
+<div class="field"><label for="foreignWork">Foreign skilled work experience</label><select id="foreignWork"><option value="0">None / less than 1 year</option><option value="1">1–2 years</option><option value="3">3 years or more</option></select></div>
+<div class="field"><label for="firstLang">First official language test level (CLB/NCLC)</label><select id="firstLang"><option value="4">CLB 4 or lower</option><option value="5">CLB 5</option><option value="6">CLB 6</option><option value="7">CLB 7</option><option value="8">CLB 8</option><option value="9" selected>CLB 9</option><option value="10">CLB 10 or higher</option></select><small>Enter the lowest CLB/NCLC across all four abilities.</small></div>
+<div class="field"><label for="secondLang">Second official language level</label><select id="secondLang"><option value="0">None / below CLB 5</option><option value="5">CLB 5–6 in all four abilities</option><option value="7">CLB 7+ in all four abilities</option></select></div>
+<div class="field"><label for="sibling">Sibling in Canada (citizen or PR, 18+)</label><select id="sibling"><option value="0">No</option><option value="1">Yes</option></select></div>
+<div class="field"><label for="pnp">Provincial / territorial nomination</label><select id="pnp"><option value="0">No</option><option value="1">Yes</option></select></div>
+<div class="field"><label for="french">French-language bonus eligibility</label><select id="french"><option value="0">No / not eligible</option><option value="25">NCLC 7+ in all four abilities, English CLB 4 or lower or no English test</option><option value="50">NCLC 7+ in all four abilities and English CLB 5+ in all four abilities</option></select></div>
+<div class="field"><label for="trade">Certificate of qualification (eligible trade)</label><select id="trade"><option value="0">No</option><option value="1">Yes</option></select></div>
+</div></div>
+<div class="panel"><h2>2. Spouse factors</h2><div class="fields">
+<div class="field"><label for="spEdu">Spouse education</label><select id="spEdu"><option value="0">None / secondary or less</option><option value="1">One-year post-secondary</option><option value="2">Two-year post-secondary</option><option value="3">Bachelor's / 3+ year credential</option><option value="4">Two or more credentials</option><option value="5">Master's / professional degree</option><option value="6">Doctoral degree</option></select></div>
+<div class="field"><label for="spLang">Spouse language level (CLB/NCLC)</label><select id="spLang"><option value="0">Below CLB 5 / no test</option><option value="5">CLB 5–6</option><option value="7">CLB 7–8</option><option value="9">CLB 9+</option></select></div>
+<div class="field"><label for="spWork">Spouse Canadian work experience</label><select id="spWork"><option value="0">None</option><option value="1">1 year</option><option value="2">2 years</option><option value="3">3 years</option><option value="4">4 years</option><option value="5">5 years or more</option></select></div>
+</div><p class="hint">Spouse points apply only when you select an accompanying spouse above.</p></div>
+<div class="panel"><h2>3. New labour-market integration factor</h2><p class="hint">Used only in the November 3, 2026 rules view. Choose the best fit for your occupation's official median-wage tier, not simply your personal salary.</p><div class="fields">
+<div class="field"><label for="highWage">Canadian work in an eligible high-wage occupation</label><select id="highWage"><option value="0">No / not eligible</option><option value="1">At least 12 months; pay at least 1.3× but below 1.5× occupation median</option><option value="2">At least 12 months; pay at least 1.5× but below 2× occupation median</option><option value="3">At least 12 months; pay at least 2× occupation median</option></select></div>
+<div class="field"><label for="jobOffer">Qualifying high-wage job offer</label><select id="jobOffer"><option value="0">No qualifying offer</option><option value="1">At least 1.3× but below 1.5× occupation median</option><option value="2">At least 1.5× but below 2× occupation median</option><option value="3">At least 2× occupation median</option></select><small>Do not count both this and the Canadian-work bonus. Check IRCC eligibility rules.</small></div>
+</div></div>
+</section>
+<aside class="result"><div class="scorecard"><div class="label" id="ruleLabel">Estimated CRS score · current rules</div><div class="score" id="total">0</div><div class="meter"><span id="meter"></span></div><p class="label" id="scoreNote">Out of a possible 1,200 CRS points; this is an estimate.</p></div>
+<div class="panel"><h2>Score breakdown</h2><div id="breakdown"></div><div class="btnrow"><button class="btn primary" id="copyBtn" type="button">Copy score summary</button><button class="btn" id="resetBtn" type="button">Reset</button></div><p class="disclaimer" id="copyStatus" aria-live="polite"></p></div>
+<div class="panel"><h2>Verify with IRCC</h2><p><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score.html" target="_blank" rel="noopener">Official CRS calculator ↗</a></p><p><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score/crs-criteria.html" target="_blank" rel="noopener">CRS criteria and point tables ↗</a></p><p><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/changes.html" target="_blank" rel="noopener">November 3, 2026 changes ↗</a></p><p><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score/high-wage.html" target="_blank" rel="noopener">Eligible high-wage occupations ↗</a></p></div></aside></div>
+</main><footer><div class="wrap">Independent project. Not affiliated with IRCC or the Government of Canada. Rules can change; always confirm eligibility and your score with official sources.</div></footer>
+<script>
+const $=id=>document.getElementById(id);let future=false;
+const val=id=>Number($(id).value);
+const ageNo=[0,0,99,105,110,110,110,110,110,110,110,110,110,110,110,110,105,99,94,88,83,77,72,66,61,0];
+function agePoints(a,sp){if(a<18||a>=45)return 0;const no={18:99,19:105,20:110,21:110,22:110,23:110,24:110,25:110,26:110,27:110,28:110,29:110,30:105,31:99,32:94,33:88,34:83,35:77,36:72,37:66,38:61,39:55,40:50,41:39,42:28,43:17,44:6};const yes={18:90,19:95,20:100,21:100,22:100,23:100,24:100,25:100,26:100,27:100,28:100,29:100,30:95,31:90,32:85,33:80,34:75,35:70,36:65,37:60,38:55,39:50,40:45,41:35,42:25,43:15,44:5};return (sp?yes:no)[a]||0}
+function eduCore(e,sp){const n=[0,30,90,98,120,128,135,150],s=[0,28,84,91,112,119,126,140];return (sp?s:n)[e]}
+function languageCore(clb,sp){const p=sp?[0,0,6,8,16,22,29,32]:[0,0,6,9,17,23,31,34];return p[Math.min(7,Math.max(0,clb-4))]||0}
+function canWorkPoints(y,sp){const n=[0,40,53,64,72,80],s=[0,35,46,56,63,70];return (sp?s:n)[y]||0}
+function spouseEdu(e){return [0,2,6,8,10,10,10][e]||0}
+function spouseLang(level){return level===5?4:level===7?12:level===9?20:0}
+function spouseWork(y){return [0,5,7,8,9,10][y]||0}
+function calculate(){
+ const sp=$('spouse').value==='yes',a=val('age'),edu=val('education'),can=val('canWork'),foreign=val('foreignWork'),clb=val('firstLang'),second=val('secondLang');
+ const coreAge=agePoints(a,sp),coreEdu=eduCore(edu,sp),coreLang=languageCore(clb,sp)*4,coreCan=canWorkPoints(can,sp);
+ const secondPts=second===0?0:second===5?12:24;
+ const spousePts=sp?(spouseEdu(val('spEdu'))+spouseLang(val('spLang'))+spouseWork(val('spWork'))):0;
+ const canEdu=val('canEdu')===1?15:val('canEdu')===2?30:0;
+ const french=val('french'),sibling=val('sibling')?15:0,pnp=val('pnp')?600:0;
+ // Transferability factors are estimated from common CRS thresholds and capped at 100.
+ let eduTransfer=0;
+ const eduHigh=edu>=5?2:edu>=4?1:edu>=2?1:0;
+ if(eduHigh){if(clb>=9)eduTransfer+=edu>=5?50:25;else if(clb>=7)eduTransfer+=edu>=5?25:13;}
+ if(eduHigh&&can>=1)eduTransfer+=edu>=5?50:25;
+ let foreignTransfer=0;
+ if(foreign>=1&&clb>=9)foreignTransfer+=foreign===3?50:25;
+ else if(foreign>=1&&clb>=7)foreignTransfer+=foreign===3?25:13;
+ if(foreign>=1&&can>=1)foreignTransfer+=foreign===3?50:25;
+ const tradeTransfer=val('trade')&&clb>=5?25:0;
+ const transfer=Math.min(100,eduTransfer+foreignTransfer+tradeTransfer);
+ const core=coreAge+coreEdu+coreLang+coreCan;
+ const extras=secondPts+canEdu+french+sibling+pnp;
+ let labour=0;
+ if(future){
+  const hw=val('highWage'),offer=val('jobOffer');
+  // IRCC says the new factor is capped at 150; only the stronger qualifying pathway counts.
+  const workBonus=[0,20,40,70][hw],offerBonus=[0,50,70,100][offer];
+  labour=Math.max(workBonus,offerBonus);
+ }
+ const total=core+spousePts+transfer+extras+labour;
+ const rows=[['Core / human capital',core],['Spouse factors',spousePts],['Skill transferability (estimated)',transfer],['Additional points',extras],...(future?[['Labour-market integration factor',labour]]:[])];
+ $('total').textContent=total.toLocaleString();$('meter').style.width=Math.min(100,total/1200*100)+'%';
+ $('ruleLabel').textContent='Estimated CRS score · '+(future?'rules from Nov 3, 2026':'current rules');
+ $('scoreNote').textContent=future?'Includes the new labour-market integration factor using the higher eligible pathway.':'Job-offer points are not included under current rules.';
+ $('breakdown').innerHTML=rows.map(([name,n])=>'<div class="subscore"><span>'+name+'</span><strong>'+n.toLocaleString()+'</strong></div>').join('');
+ window.currentSummary='Estimated Express Entry CRS score: '+total+'\nRules view: '+(future?'From November 3, 2026':'Current rules as of October 16, 2026')+'\n'+rows.map(([n,v])=>n+': '+v).join('\n')+'\nIndependent estimate; verify with IRCC.';
+}
+document.querySelectorAll('select').forEach(el=>el.addEventListener('change',calculate));
+$('currentBtn').addEventListener('click',()=>{future=false;$('currentBtn').classList.add('active');$('futureBtn').classList.remove('active');calculate()});
+$('futureBtn').addEventListener('click',()=>{future=true;$('futureBtn').classList.add('active');$('currentBtn').classList.remove('active');calculate()});
+$('copyBtn').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(window.currentSummary);$('copyStatus').textContent='Summary copied.'}catch(e){$('copyStatus').textContent='Copy was blocked by your browser. Select the score and copy manually.'}});
+$('resetBtn').addEventListener('click',()=>{document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);$('age').value='35';$('firstLang').value='9';future=false;$('currentBtn').classList.add('active');$('futureBtn').classList.remove('active');$('copyStatus').textContent='';calculate()});
+calculate();
+</script></body></html>
