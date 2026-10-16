@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Estimate your Canadian Express Entry CRS score under current rules and changes effective November 3, 2026.">
-<title>Express Entry CRS Score Calculator</title>
+<meta name="description" content="Estimate your Canadian Express Entry CRS score under the new rules announced for November 3, 2026.">
+<title>Express Entry CRS Calculator · New 2026 Rules</title>
 <style>
 :root{color-scheme:light;--ink:#182230;--muted:#596579;--line:#d9e0e8;--paper:#fff;--bg:#f4f7fb;--blue:#1458a6;--blue2:#e9f2ff;--green:#176b48;--amber:#805400}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}header{background:#102d50;color:#fff;padding:32px 18px}header .wrap,main{max-width:1050px;margin:auto}header h1{font-size:clamp(1.7rem,4vw,2.5rem);line-height:1.15;margin:0 0 12px}header p{max-width:760px;color:#dce8f7;margin:0}.wrap{padding:0 16px}main{padding:22px 16px 48px}.notice{background:#fff7df;border:1px solid #f0d58b;border-radius:12px;padding:14px 16px;margin-bottom:18px;color:#533d08}.mode{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:18px}.mode button,.btn{border:1px solid var(--line);background:white;color:var(--ink);padding:10px 14px;border-radius:9px;cursor:pointer;font:inherit;font-weight:650}.mode button.active,.btn.primary{background:var(--blue);border-color:var(--blue);color:white}.layout{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(280px,.8fr);gap:18px;align-items:start}.panel{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:20px;margin-bottom:16px}.panel h2{font-size:1.15rem;margin:0 0 15px}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.field{min-width:0}.field.full{grid-column:1/-1}label{display:block;font-size:.9rem;font-weight:650;margin-bottom:5px}select,input{width:100%;padding:10px;border:1px solid #bbc6d4;border-radius:8px;background:#fff;color:var(--ink);font:inherit}small,.hint{display:block;color:var(--muted);font-size:.8rem;margin-top:4px}.check{display:flex;align-items:flex-start;gap:9px}.check input{width:auto;margin-top:5px}.result{position:sticky;top:14px}.scorecard{background:#102d50;color:#fff;border-radius:14px;padding:22px}.scorecard .label{color:#cfe0f5;font-size:.9rem}.score{font-size:3.3rem;font-weight:800;letter-spacing:-2px;line-height:1.1;margin:5px 0 12px}.meter{height:9px;border-radius:99px;background:#36506c;overflow:hidden}.meter span{display:block;height:100%;width:0;background:#7bd5a7;transition:width .2s}.subscore{display:flex;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--line);font-size:.92rem}.subscore:last-child{border:0}.subscore strong{font-variant-numeric:tabular-nums}.result h2{margin-top:0}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}.disclaimer{font-size:.87rem;color:var(--muted)}a{color:var(--blue)}footer{border-top:1px solid var(--line);padding:20px 16px;color:var(--muted);font-size:.85rem}details{margin-top:12px}summary{cursor:pointer;font-weight:650}.pill{display:inline-block;padding:3px 8px;border-radius:99px;background:var(--blue2);color:#154a86;font-size:.78rem;font-weight:700;margin-bottom:8px}@media(max-width:760px){.layout{grid-template-columns:1fr}.result{position:static}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.panel{padding:16px}.score{font-size:2.8rem}}
 </style>
 </head>
 <body>
-<header><div class="wrap"><h1>Express Entry CRS Score Calculator</h1><p>Estimate your Comprehensive Ranking System score, see the breakdown, and compare today's rules with the changes scheduled for November 3, 2026.</p></div></header>
+<header><div class="wrap"><h1>Express Entry CRS Score Calculator</h1><p>Estimate your Comprehensive Ranking System score under the new labour-market integration rules scheduled to take effect November 3, 2026.</p></div></header>
 <main>
 <div class="notice"><strong>Important:</strong> This is an independent estimate, not an IRCC tool or immigration advice. The November 3, 2026 rules are shown as announced; confirm details with IRCC before making decisions. Your official score may differ.</div>
-<div class="mode" role="group" aria-label="Scoring rules"><button id="currentBtn" class="active" type="button">Current rules (Oct 16, 2026)</button><button id="futureBtn" type="button">From Nov 3, 2026</button></div>
+<div class="pill">New rules · effective November 3, 2026</div>
 <div class="layout"><section>
 <div class="panel"><h2>1. Your profile</h2><div class="fields">
 <div class="field"><label for="age">Age</label><select id="age"><option value="17">17 or younger</option><option value="18">18</option><option value="19">19</option><option value="20">20</option><option value="21">21</option><option value="22">22</option><option value="23">23</option><option value="24">24</option><option value="25">25</option><option value="26">26</option><option value="27">27</option><option value="28">28</option><option value="29">29</option><option value="30">30</option><option value="31">31</option><option value="32">32</option><option value="33">33</option><option value="34">34</option><option value="35" selected>35</option><option value="36">36</option><option value="37">37</option><option value="38">38</option><option value="39">39</option><option value="40">40</option><option value="41">41</option><option value="42">42</option><option value="43">43</option><option value="44">44</option><option value="45">45 or older</option></select></div>
@@ -41,7 +41,7 @@
 <div class="field full"><p class="hint" id="labourStatus" aria-live="polite">Enter your qualifying work months and, if applicable, job-offer details.</p></div>
 </div></div>
 </section>
-<aside class="result"><div class="scorecard"><div class="label" id="ruleLabel">Estimated CRS score · current rules</div><div class="score" id="total">0</div><div class="meter"><span id="meter"></span></div><p class="label" id="scoreNote">Out of a possible 1,200 CRS points; this is an estimate.</p></div>
+<aside class="result"><div class="scorecard"><div class="label" id="ruleLabel">Estimated CRS score · new rules from Nov 3, 2026</div><div class="score" id="total">0</div><div class="meter"><span id="meter"></span></div><p class="label" id="scoreNote">Out of a possible 1,200 CRS points; this is an estimate.</p></div>
 <div class="panel"><h2>Score breakdown</h2><div id="breakdown"></div><div class="btnrow"><button class="btn primary" id="copyBtn" type="button">Copy score summary</button><button class="btn" id="resetBtn" type="button">Reset</button></div><p class="disclaimer" id="copyStatus" aria-live="polite"></p></div>
 <div class="panel"><h2>Verify with IRCC</h2><p><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score.html" target="_blank" rel="noopener">Official CRS calculator ↗</a></p><p><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score/crs-criteria.html" target="_blank" rel="noopener">CRS criteria and point tables ↗</a></p><p><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/changes.html" target="_blank" rel="noopener">November 3, 2026 changes ↗</a></p><p><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score/high-wage.html" target="_blank" rel="noopener">Eligible high-wage occupations ↗</a></p></div></aside></div>
 </main><footer><div class="wrap">Independent project. Not affiliated with IRCC or the Government of Canada. Rules can change; always confirm eligibility and your score with official sources.</div></footer>
@@ -55,7 +55,6 @@ const eligibleNocs={
 };
 const nocTier=new Map();for(const [tier,codes] of Object.entries(eligibleNocs))for(const code of codes.split(/\s+/))nocTier.set(code,Number(tier));
 function updateLabourStatus(sp,can){
- if(!future){$('labourStatus').textContent='This factor applies only in the rules view starting November 3, 2026.';return {points:0,pathway:'Not applicable',workPath:0,offerPath:0,bonus:0};}
  const months3=Math.max(0,Math.floor(Number($('monthsTier3').value)||0));
  const months2=Math.max(0,Math.floor(Number($('monthsTier2').value)||0));
  const months1=Math.max(0,Math.floor(Number($('monthsTier1').value)||0));
@@ -93,7 +92,7 @@ function spouseWork(y){return [0,5,7,8,9,10][y]||0}
 function calculate(){
  const sp=$('spouse').value==='yes',a=val('age'),edu=val('education'),can=val('canWork'),foreign=val('foreignWork');
  const firstLevels=abilityLevels('first'),secondLevels=abilityLevels('second'),firstMin=Math.min(...firstLevels);
- const coreAge=agePoints(a,sp),coreEdu=eduCore(edu,sp),coreLang=firstLevels.reduce((sum,level)=>sum+firstLanguagePoints(level,sp),0),coreCan=future?0:canWorkPoints(can,sp);
+ const coreAge=agePoints(a,sp),coreEdu=eduCore(edu,sp),coreLang=firstLevels.reduce((sum,level)=>sum+firstLanguagePoints(level,sp),0),coreCan=0;
  const secondPts=Math.min(sp?22:24,secondLevels.reduce((sum,level)=>sum+secondLanguagePoints(level),0));
  const spousePts=sp?(spouseEdu(val('spEdu'))+abilityLevels('sp').reduce((sum,level)=>sum+spouseLanguagePoints(level),0)+spouseWork(val('spWork'))):0;
  const canEdu=val('canEdu')===1?15:val('canEdu')===2?30:0;
@@ -111,19 +110,17 @@ function calculate(){
  const core=coreAge+coreEdu+coreLang+coreCan;
  const extras=secondPts+canEdu+french+sibling+pnp;
  const labourResult=updateLabourStatus(sp,can);
- const total=core+spousePts+transfer+extras+(future?labourResult.points:0);
- const rows=[['Core / human capital',core],['Spouse factors',spousePts],['Skill transferability (estimated)',transfer],['Additional points',extras],...(future?[['Labour-market integration factor',labourResult.points]]:[])];
+ const total=core+spousePts+transfer+extras+labourResult.points;
+ const rows=[['Core / human capital (excluding Canadian work points)',core],['Spouse factors',spousePts],['Skill transferability',transfer],['Additional points',extras],['Labour-market integration factor',labourResult.points]];
  $('total').textContent=total.toLocaleString();$('meter').style.width=Math.min(100,total/1200*100)+'%';
- $('ruleLabel').textContent='Estimated CRS score · '+(future?'rules from Nov 3, 2026':'current rules');
- $('scoreNote').textContent=future?'Canadian work-duration points are included in the labour-market factor, not counted twice. Verify work eligibility and any job offer with IRCC.':'Job-offer points are not included under current rules.';
+ $('ruleLabel').textContent='Estimated CRS score · new rules from Nov 3, 2026';
+ $('scoreNote').textContent='Canadian work-duration points are included in the labour-market factor, not counted twice. Verify work eligibility and any job offer with IRCC.';
  $('breakdown').innerHTML=rows.map(([name,n])=>'<div class="subscore"><span>'+name+'</span><strong>'+n.toLocaleString()+'</strong></div>').join('');
- window.currentSummary='Estimated Express Entry CRS score: '+total+'\nRules view: '+(future?'From November 3, 2026':'Current rules as of October 16, 2026')+'\n'+rows.map(([n,v])=>n+': '+v).join('\n')+'\nIndependent estimate; verify with IRCC.';
+ window.currentSummary='Estimated Express Entry CRS score under the new rules effective November 3, 2026: '+total+'\n'+rows.map(([n,v])=>n+': '+v).join('\n')+'\nIndependent estimate; verify with IRCC.';
 }
 document.querySelectorAll('select').forEach(el=>el.addEventListener('change',calculate));
 ['monthsTier1','monthsTier2','monthsTier3','offerNocCode'].forEach(id=>$(id).addEventListener('input',calculate));
-$('currentBtn').addEventListener('click',()=>{future=false;$('currentBtn').classList.add('active');$('futureBtn').classList.remove('active');calculate()});
-$('futureBtn').addEventListener('click',()=>{future=true;$('futureBtn').classList.add('active');$('currentBtn').classList.remove('active');calculate()});
 $('copyBtn').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(window.currentSummary);$('copyStatus').textContent='Summary copied.'}catch(e){$('copyStatus').textContent='Copy was blocked by your browser. Select the score and copy manually.'}});
-$('resetBtn').addEventListener('click',()=>{document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);['monthsTier1','monthsTier2','monthsTier3'].forEach(id=>$(id).value='0');$('offerNocCode').value='';$('age').value='35';['first','second','sp'].forEach(prefix=>['Read','Write','Speak','Listen'].forEach(suffix=>$(prefix+suffix).value=prefix==='first'?9:3));future=false;$('currentBtn').classList.add('active');$('futureBtn').classList.remove('active');$('copyStatus').textContent='';calculate()});
+$('resetBtn').addEventListener('click',()=>{document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);['monthsTier1','monthsTier2','monthsTier3'].forEach(id=>$(id).value='0');$('offerNocCode').value='';$('age').value='35';['first','second','sp'].forEach(prefix=>['Read','Write','Speak','Listen'].forEach(suffix=>$(prefix+suffix).value=prefix==='first'?9:3));$('copyStatus').textContent='';calculate()});
 calculate();
 </script></body></html>
