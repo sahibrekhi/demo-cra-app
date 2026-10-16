@@ -59,7 +59,9 @@ function updateLabourStatus(sp,can){
  const months3=Math.max(0,Math.floor(Number($('monthsTier3').value)||0));
  const months2=Math.max(0,Math.floor(Number($('monthsTier2').value)||0));
  const months1=Math.max(0,Math.floor(Number($('monthsTier1').value)||0));
- const bonus=months3>=12?70:(months3+months2>=12?40:(months3+months2+months1>=12?20:0));
+ const totalHighWageMonths=months3+months2+months1;
+ const durationInconsistent=can<5&&totalHighWageMonths>can*12;
+ const bonus=durationInconsistent?0:(months3>=12?70:(months3+months2>=12?40:(totalHighWageMonths>=12?20:0)));
  const workLength=canWorkPoints(can,sp);
  const cap=sp?140:150;
  const workPath=Math.min(cap,workLength+bonus);
@@ -69,7 +71,8 @@ function updateLabourStatus(sp,can){
  const offerPath=offerConfirmed&&/^\\d{5}$/.test(offerCode)&&offerTier?[0,50,70,100][offerTier]:0;
  const points=Math.max(workPath,offerPath);
  const pathway=offerPath>workPath?'Qualifying job offer':workPath>offerPath?'Canadian work experience':points?'Both pathways tie':'Neither pathway adds points';
- let message='Canadian-work pathway: '+workLength+' work-duration points + '+bonus+' high-wage bonus = '+workPath+'. ';
+ let message=durationInconsistent?'Check your inputs: high-wage occupation months exceed the selected total Canadian work-experience duration. The high-wage bonus is not counted until corrected. ':'';
+ message+='Canadian-work pathway: '+workLength+' work-duration points + '+bonus+' high-wage bonus = '+workPath+'. ';
  if(offerCode&&(!/^\\d{5}$/.test(offerCode)||!offerTier))message+='The job-offer NOC is not on IRCC’s eligible high-wage list, so its offer points are 0. ';
  else message+='Qualifying job-offer pathway: '+offerPath+' points. ';
  message+='Selected pathway: '+pathway+'. Labour-market factor: '+points+' points. Pathways are not combined.';
@@ -95,7 +98,7 @@ function calculate(){
  const spousePts=sp?(spouseEdu(val('spEdu'))+abilityLevels('sp').reduce((sum,level)=>sum+spouseLanguagePoints(level),0)+spouseWork(val('spWork'))):0;
  const canEdu=val('canEdu')===1?15:val('canEdu')===2?30:0;
  const french=val('french'),sibling=val('sibling')?15:0,pnp=val('pnp')?600:0;
- // Transferability factors are estimated from common CRS thresholds and capped at 100.
+ // Skill transferability follows IRCC's published thresholds and is capped at 100.
  const educationTier=edu>=5?2:edu>=2?1:0;
  const languageEducation=educationTier===0||firstMin<7?0:firstMin>=9?(educationTier===2?50:25):(educationTier===2?25:13);
  const canadianEducation=educationTier===0||can===0?0:can>=2?(educationTier===2?50:25):(educationTier===2?25:13);
