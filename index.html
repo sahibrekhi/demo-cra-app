@@ -33,15 +33,15 @@
 <div class="field"><label for="spWork">Spouse Canadian work experience</label><select id="spWork"><option value="0">None</option><option value="1">1 year</option><option value="2">2 years</option><option value="3">3 years</option><option value="4">4 years</option><option value="5">5 years or more</option></select></div>
 </div><p class="hint">Spouse points apply only when you select an accompanying spouse above.</p></div>
 <div class="panel"><h2>3. New labour-market integration factor</h2><p class="hint">This section applies from November 3, 2026. Your personal salary does not determine an occupation's level. Use IRCC's list and enter qualifying Canadian work experience by the level of each eligible occupation. Count only qualifying work in Canada. Enter full-time-equivalent months (12 months = 1,560 hours); do not double-count overlapping jobs, and count concurrent work only up to 30 hours per week in total.</p><div class="fields">
-<div class="field"><label for="monthsTier3">Full-time-equivalent months in Level 3 occupations</label><input id="monthsTier3" type="number" min="0" max="600" step="1" value="0"><small>Level 3: occupation median wage at least 2× the national median.</small></div>
-<div class="field"><label for="monthsTier2">Full-time-equivalent months in Level 2 occupations</label><input id="monthsTier2" type="number" min="0" max="600" step="1" value="0"><small>Level 2: at least 1.5× but below 2×.</small></div>
-<div class="field"><label for="monthsTier1">Full-time-equivalent months in Level 1 occupations</label><input id="monthsTier1" type="number" min="0" max="600" step="1" value="0"><small>Level 1: at least 1.3× but below 1.5×. Experience may be combined across eligible occupations.</small></div>
+<div class="field"><label for="monthsTier3">Full-time-equivalent months in Level 3 occupations</label><input id="monthsTier3" type="number" min="0" max="600" step="1" value="0"><small>Level 3: occupation median at least 2× the overall Canadian workforce median.</small></div>
+<div class="field"><label for="monthsTier2">Full-time-equivalent months in Level 2 occupations</label><input id="monthsTier2" type="number" min="0" max="600" step="1" value="0"><small>Level 2: at least 1.5× but below 2× the overall Canadian workforce median.</small></div>
+<div class="field"><label for="monthsTier1">Full-time-equivalent months in Level 1 occupations</label><input id="monthsTier1" type="number" min="0" max="600" step="1" value="0"><small>Level 1: at least 1.3× but below 1.5× the overall Canadian workforce median. Experience may be combined across eligible occupations.</small></div>
 <div class="field full"><label for="offerNocCode">NOC code for your job offer (if applicable)</label><input id="offerNocCode" inputmode="numeric" maxlength="5" placeholder="e.g. 21232"><small>Check the exact NOC code and level on <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score/high-wage.html" target="_blank" rel="noopener">IRCC's official eligible occupation list ↗</a>. Match the duties, not just the job title.</small></div>
 <div class="field full"><label for="jobOfferStatus">Does this offer meet IRCC's qualifying job-offer requirements?</label><select id="jobOfferStatus"><option value="0">No / unsure</option><option value="1">Yes, I have verified the requirements</option></select><small>The offer must be valid under Express Entry and genuine. Other requirements can depend on your program and occupation. LMIA status alone does not determine points under the new rules.</small></div>
 <div class="field full"><p class="hint" id="labourStatus" aria-live="polite">Enter your qualifying work months and, if applicable, job-offer details.</p></div>
 </div></div>
 </section>
-<aside class="result"><div class="scorecard"><div class="label" id="ruleLabel">Estimated CRS score · new rules from Nov 3, 2026</div><div class="score" id="total">0</div><div class="meter"><span id="meter"></span></div><p class="label" id="scoreNote">Out of a possible 1,200 CRS points; this is an estimate.</p></div>
+<aside class="result"><div class="scorecard"><div class="label" id="ruleLabel">Estimated CRS score · new rules from Nov 3, 2026</div><div class="score" id="total">0</div><div class="meter"><span id="meter"></span></div><p class="label" id="scoreNote">Estimated score under the announced November 2026 rules; verify with IRCC.</p></div>
 <div class="panel"><h2>Score breakdown</h2><div id="breakdown"></div><div class="btnrow"><button class="btn primary" id="copyBtn" type="button">Copy score summary</button><button class="btn" id="resetBtn" type="button">Reset</button></div><p class="disclaimer" id="copyStatus" aria-live="polite"></p></div>
 <div class="panel"><h2>Verify with IRCC</h2><p><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score.html" target="_blank" rel="noopener">Official CRS calculator ↗</a></p><p><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score/crs-criteria.html" target="_blank" rel="noopener">CRS criteria and point tables ↗</a></p><p><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/changes.html" target="_blank" rel="noopener">November 3, 2026 changes ↗</a></p><p><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score/high-wage.html" target="_blank" rel="noopener">Eligible high-wage occupations ↗</a></p></div></aside></div>
 </main><footer><div class="wrap">Independent project. Not affiliated with IRCC or the Government of Canada. Rules can change; always confirm eligibility and your score with official sources.</div></footer>
@@ -72,8 +72,10 @@ function updateLabourStatus(sp,can,canMonths){
  const pathway=offerPath>workPath?'Qualifying job offer':workPath>offerPath?'Canadian work experience':points?'Both pathways tie':'Neither pathway adds points';
  let message=durationInconsistent?'Check your inputs: high-wage occupation months exceed the selected total Canadian work-experience duration. The high-wage bonus is not counted until corrected. ':'';
  message+='Canadian-work pathway: '+workLength+' work-duration points + '+bonus+' high-wage bonus = '+workPath+'. ';
- if(offerCode&&(!/^\d{5}$/.test(offerCode)||!offerTier))message+='The job-offer NOC is not on IRCC’s eligible high-wage list, so its offer points are 0. ';
- else message+='Qualifying job-offer pathway: '+offerPath+' points. ';
+ if(offerConfirmed&&!offerCode)message+='You marked the offer as qualifying but have not entered its NOC code; offer points cannot be assessed and are treated as 0. ';
+ else if(offerCode&&(!/^\d{5}$/.test(offerCode)||!offerTier))message+='The job-offer NOC is not on IRCC’s eligible high-wage list, so its offer points are 0. ';
+ else if(offerConfirmed)message+='Qualifying job-offer pathway: '+offerPath+' points. ';
+ else message+='Job-offer pathway: 0 points (not confirmed as qualifying). ';
  message+='Selected pathway: '+pathway+'. Labour-market factor: '+points+' points. Pathways are not combined.';
  $('labourStatus').textContent=message;
  return {points,pathway,workPath,offerPath,bonus};
@@ -108,11 +110,11 @@ function calculate(){
  const tradeTransfer=val('trade')?(firstMin>=7?50:firstMin>=5?25:0):0;
  const transfer=Math.min(100,eduTransfer+foreignTransfer+tradeTransfer);
  const core=coreAge+coreEdu+coreLang+coreCan+secondPts;
- const extras=canEdu+french+sibling+pnp;
+ const extras=Math.min(600,canEdu+french+sibling+pnp);
  const labourResult=updateLabourStatus(sp,can,canMonths);
  const total=core+spousePts+transfer+extras+labourResult.points;
  const rows=[['Core / human capital (excluding Canadian work points)',core],['Spouse factors',spousePts],['Skill transferability',transfer],['Additional points',extras],['Labour-market integration factor',labourResult.points]];
- $('total').textContent=total.toLocaleString();$('meter').style.width=Math.min(100,total/1200*100)+'%';
+ $('total').textContent=total.toLocaleString();$('meter').style.width=Math.min(100,total/1270*100)+'%';
  $('ruleLabel').textContent='Estimated CRS score · new rules from Nov 3, 2026';
  $('scoreNote').textContent='Canadian work-duration points are included in the labour-market factor, not counted twice. Verify work eligibility and any job offer with IRCC.';
  $('breakdown').innerHTML=rows.map(([name,n])=>'<div class="subscore"><span>'+name+'</span><strong>'+n.toLocaleString()+'</strong></div>').join('');
