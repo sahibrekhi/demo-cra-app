@@ -107,8 +107,8 @@ function calculate(){
  const foreignTransfer=Math.min(50,foreignLanguage+foreignCanadian);
  const tradeTransfer=val('trade')?(firstMin>=7?50:firstMin>=5?25:0):0;
  const transfer=Math.min(100,eduTransfer+foreignTransfer+tradeTransfer);
- const core=coreAge+coreEdu+coreLang+coreCan;
- const extras=secondPts+canEdu+french+sibling+pnp;
+ const core=coreAge+coreEdu+coreLang+coreCan+secondPts;
+ const extras=canEdu+french+sibling+pnp;
  const labourResult=updateLabourStatus(sp,can);
  const total=core+spousePts+transfer+extras+labourResult.points;
  const rows=[['Core / human capital (excluding Canadian work points)',core],['Spouse factors',spousePts],['Skill transferability',transfer],['Additional points',extras],['Labour-market integration factor',labourResult.points]];
