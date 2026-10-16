@@ -48,6 +48,24 @@
 <script>
 const $=id=>document.getElementById(id);let future=false;
 const val=id=>Number($(id).value);
+const eligibleNocs={
+3:"00011 00012 00013 10010 10011 10012 10020 10021 20010 20011 20012 21330 21332 31100 31101 31102 31103 31302 31303 40010 40011 40012 40019 40040 40041 41100 41101 41200 60010 80010 90011",
+2:"00014 00015 10019 10022 10029 10030 11103 11201 21100 21102 21103 21109 21111 21120 21202 21210 21211 21220 21221 21222 21223 21230 21231 21232 21300 21301 21310 21311 21320 21321 21322 21331 21390 21399 22231 22312 30010 31110 31112 31120 31200 31202 31203 31300 31301 32111 40020 40021 40030 40042 41210 41220 41221 41310 41311 41320 41401 41402 41404 41407 42100 42101 50010 50011 51100 70010 70012 70020 70021 72011 72012 72023 72103 72202 72203 72301 72406 72600 72601 72604 73310 82020 82021 83101 90010 92011 92100 93100 93101",
+1:"00010 11100 11101 11102 11109 11200 12201 12203 21101 21110 21112 21200 21201 21203 21234 22214 22232 22233 22310 22313 31121 32102 32103 32120 32121 32122 41300 41400 41403 41405 41409 43201 43203 50012 51101 51102 51111 51112 51120 52112 60020 60031 60040 72010 72013 72014 72020 72021 72102 72105 72201 72302 72320 72321 72401 72403 72404 72500 72602 72603 73311 82010 83100 83120 92010 93102"
+};
+const nocTier=new Map();for(const [tier,codes] of Object.entries(eligibleNocs))for(const code of codes.split(/\\s+/))nocTier.set(code,Number(tier));
+function updateLabourStatus(){
+ if(!future){$('labourStatus').textContent='This factor applies only in the rules view starting November 3, 2026.';return 0;}
+ const code=$('nocCode').value.trim(),tier=nocTier.get(code)||0;
+ if(!/^\\d{5}$/.test(code)||!tier){$('labourStatus').textContent=code?'That NOC code is not on IRCC’s current eligible high-wage list. This factor adds 0 points.':'Enter a 5-digit NOC code from IRCC’s eligible list.';return 0;}
+ const work=val('workInNoc')===1,offer=val('jobOfferStatus')===1;
+ const workPts=work?[0,20,40,70][tier]:0,offerPts=offer?[0,50,70,100][tier]:0;
+ const best=Math.max(workPts,offerPts),level=['','Level 1 (1.3× to below 1.5×)','Level 2 (1.5× to below 2×)','Level 3 (at least 2×)'][tier];
+ const pathway=workPts>offerPts?'Canadian work experience':offerPts>workPts?'Qualifying job offer':best?'Both pathways tie':'Neither pathway selected';
+ $('labourStatus').textContent=level+'. Best pathway: '+pathway+'. Labour-market factor: '+best+' points. Personal salary does not determine eligibility.';
+ return best;
+}
+
 const ageNo=[0,0,99,105,110,110,110,110,110,110,110,110,110,110,110,110,105,99,94,88,83,77,72,66,61,0];
 function agePoints(a,sp){if(a<18||a>=45)return 0;const no={18:99,19:105,20:110,21:110,22:110,23:110,24:110,25:110,26:110,27:110,28:110,29:110,30:105,31:99,32:94,33:88,34:83,35:77,36:72,37:66,38:61,39:55,40:50,41:39,42:28,43:17,44:6};const yes={18:90,19:95,20:100,21:100,22:100,23:100,24:100,25:100,26:100,27:100,28:100,29:100,30:95,31:90,32:85,33:80,34:75,35:70,36:65,37:60,38:55,39:50,40:45,41:35,42:25,43:15,44:5};return (sp?yes:no)[a]||0}
 function eduCore(e,sp){const n=[0,30,90,98,120,128,135,150],s=[0,28,84,91,112,119,126,140];return (sp?s:n)[e]}
@@ -73,13 +91,7 @@ function calculate(){
  const transfer=Math.min(100,eduTransfer+foreignTransfer+tradeTransfer);
  const core=coreAge+coreEdu+coreLang+coreCan;
  const extras=secondPts+canEdu+french+sibling+pnp;
- let labour=0;
- if(future){
-  const hw=val('highWage'),offer=val('jobOffer');
-  // IRCC says the new factor is capped at 150; only the stronger qualifying pathway counts.
-  const workBonus=[0,20,40,70][hw],offerBonus=[0,50,70,100][offer];
-  labour=Math.max(workBonus,offerBonus);
- }
+ let labour=updateLabourStatus();
  const total=core+spousePts+transfer+extras+labour;
  const rows=[['Core / human capital',core],['Spouse factors',spousePts],['Skill transferability (estimated)',transfer],['Additional points',extras],...(future?[['Labour-market integration factor',labour]]:[])];
  $('total').textContent=total.toLocaleString();$('meter').style.width=Math.min(100,total/1200*100)+'%';
@@ -111,9 +123,10 @@ function updateAnnualThresholds(){
 }
 $('medianWage').addEventListener('input',updateAnnualThresholds);
 document.querySelectorAll('select').forEach(el=>el.addEventListener('change',calculate));
+$('nocCode').addEventListener('input',calculate);
 $('currentBtn').addEventListener('click',()=>{future=false;$('currentBtn').classList.add('active');$('futureBtn').classList.remove('active');calculate()});
 $('futureBtn').addEventListener('click',()=>{future=true;$('futureBtn').classList.add('active');$('currentBtn').classList.remove('active');calculate()});
 $('copyBtn').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(window.currentSummary);$('copyStatus').textContent='Summary copied.'}catch(e){$('copyStatus').textContent='Copy was blocked by your browser. Select the score and copy manually.'}});
-$('resetBtn').addEventListener('click',()=>{document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);$('medianWage').value='';updateAnnualThresholds();$('age').value='35';$('firstLang').value='9';future=false;$('currentBtn').classList.add('active');$('futureBtn').classList.remove('active');$('copyStatus').textContent='';calculate()});
+$('resetBtn').addEventListener('click',()=>{document.querySelectorAll('select').forEach(el=>el.selectedIndex=0);$('nocCode').value='';$('age').value='35';$('firstLang').value='9';future=false;$('currentBtn').classList.add('active');$('futureBtn').classList.remove('active');$('copyStatus').textContent='';calculate()});
 calculate();
 </script></body></html>
