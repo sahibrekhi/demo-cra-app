@@ -68,12 +68,12 @@ function updateLabourStatus(sp,can){
  const offerCode=$('offerNocCode').value.trim();
  const offerTier=nocTier.get(offerCode)||0;
  const offerConfirmed=val('jobOfferStatus')===1;
- const offerPath=offerConfirmed&&/^\\d{5}$/.test(offerCode)&&offerTier?[0,50,70,100][offerTier]:0;
+ const offerPath=offerConfirmed&&/^\d{5}$/.test(offerCode)&&offerTier?[0,50,70,100][offerTier]:0;
  const points=Math.max(workPath,offerPath);
  const pathway=offerPath>workPath?'Qualifying job offer':workPath>offerPath?'Canadian work experience':points?'Both pathways tie':'Neither pathway adds points';
  let message=durationInconsistent?'Check your inputs: high-wage occupation months exceed the selected total Canadian work-experience duration. The high-wage bonus is not counted until corrected. ':'';
  message+='Canadian-work pathway: '+workLength+' work-duration points + '+bonus+' high-wage bonus = '+workPath+'. ';
- if(offerCode&&(!/^\\d{5}$/.test(offerCode)||!offerTier))message+='The job-offer NOC is not on IRCC’s eligible high-wage list, so its offer points are 0. ';
+ if(offerCode&&(!/^\d{5}$/.test(offerCode)||!offerTier))message+='The job-offer NOC is not on IRCC’s eligible high-wage list, so its offer points are 0. ';
  else message+='Qualifying job-offer pathway: '+offerPath+' points. ';
  message+='Selected pathway: '+pathway+'. Labour-market factor: '+points+' points. Pathways are not combined.';
  $('labourStatus').textContent=message;
