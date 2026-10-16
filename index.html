@@ -23,7 +23,7 @@
 <div class="field"><label for="canWork">Canadian skilled work experience</label><select id="canWork"><option value="0">None</option><option value="1">1 year</option><option value="2">2 years</option><option value="3">3 years</option><option value="4">4 years</option><option value="5">5 years or more</option></select></div>
 <div class="field"><label for="foreignWork">Foreign skilled work experience</label><select id="foreignWork"><option value="0">None / less than 1 year</option><option value="1">1–2 years</option><option value="3">3 years or more</option></select></div>
 <div class="field"><label for="firstLang">First official language test level (CLB/NCLC)</label><select id="firstLang"><option value="4">CLB 4 or lower</option><option value="5">CLB 5</option><option value="6">CLB 6</option><option value="7">CLB 7</option><option value="8">CLB 8</option><option value="9" selected>CLB 9</option><option value="10">CLB 10 or higher</option></select><small>Enter the lowest CLB/NCLC across all four abilities.</small></div>
-<div class="field"><label for="secondLang">Second official language level</label><select id="secondLang"><option value="0">None / below CLB 5</option><option value="5">CLB 5–6 in all four abilities</option><option value="7">CLB 7+ in all four abilities</option></select></div>
+<div class="field"><label for="secondLang">Second official language level</label><select id="secondLang"><option value="0">None / below CLB 5</option><option value="5">CLB 5+ in all four abilities</option></select></div>
 <div class="field"><label for="sibling">Sibling in Canada (citizen or PR, 18+)</label><select id="sibling"><option value="0">No</option><option value="1">Yes</option></select></div>
 <div class="field"><label for="pnp">Provincial / territorial nomination</label><select id="pnp"><option value="0">No</option><option value="1">Yes</option></select></div>
 <div class="field"><label for="french">French-language bonus eligibility</label><select id="french"><option value="0">No / not eligible</option><option value="25">NCLC 7+ in all four abilities, English CLB 4 or lower or no English test</option><option value="50">NCLC 7+ in all four abilities and English CLB 5+ in all four abilities</option></select></div>
@@ -49,7 +49,7 @@ const val=id=>Number($(id).value);
 const ageNo=[0,0,99,105,110,110,110,110,110,110,110,110,110,110,110,110,105,99,94,88,83,77,72,66,61,0];
 function agePoints(a,sp){if(a<18||a>=45)return 0;const no={18:99,19:105,20:110,21:110,22:110,23:110,24:110,25:110,26:110,27:110,28:110,29:110,30:105,31:99,32:94,33:88,34:83,35:77,36:72,37:66,38:61,39:55,40:50,41:39,42:28,43:17,44:6};const yes={18:90,19:95,20:100,21:100,22:100,23:100,24:100,25:100,26:100,27:100,28:100,29:100,30:95,31:90,32:85,33:80,34:75,35:70,36:65,37:60,38:55,39:50,40:45,41:35,42:25,43:15,44:5};return (sp?yes:no)[a]||0}
 function eduCore(e,sp){const n=[0,30,90,98,120,128,135,150],s=[0,28,84,91,112,119,126,140];return (sp?s:n)[e]}
-function languageCore(clb,sp){const p=sp?[0,0,6,8,16,22,29,32]:[0,0,6,9,17,23,31,34];return p[Math.min(7,Math.max(0,clb-4))]||0}
+function languageCore(clb,sp){const p=sp?[0,6,8,16,22,29,32]:[0,6,9,17,23,31,34];return p[Math.min(6,Math.max(0,clb-4))]||0}
 function canWorkPoints(y,sp){const n=[0,40,53,64,72,80],s=[0,35,46,56,63,70];return (sp?s:n)[y]||0}
 function spouseEdu(e){return [0,2,6,8,10,10,10][e]||0}
 function spouseLang(level){return level===5?4:level===7?12:level===9?20:0}
@@ -57,20 +57,17 @@ function spouseWork(y){return [0,5,7,8,9,10][y]||0}
 function calculate(){
  const sp=$('spouse').value==='yes',a=val('age'),edu=val('education'),can=val('canWork'),foreign=val('foreignWork'),clb=val('firstLang'),second=val('secondLang');
  const coreAge=agePoints(a,sp),coreEdu=eduCore(edu,sp),coreLang=languageCore(clb,sp)*4,coreCan=canWorkPoints(can,sp);
- const secondPts=second===0?0:second===5?12:24;
+ const secondPts=second===0?0:(sp?22:24);
  const spousePts=sp?(spouseEdu(val('spEdu'))+spouseLang(val('spLang'))+spouseWork(val('spWork'))):0;
  const canEdu=val('canEdu')===1?15:val('canEdu')===2?30:0;
  const french=val('french'),sibling=val('sibling')?15:0,pnp=val('pnp')?600:0;
  // Transferability factors are estimated from common CRS thresholds and capped at 100.
  let eduTransfer=0;
  const eduHigh=edu>=5?2:edu>=4?1:edu>=2?1:0;
- if(eduHigh){if(clb>=9)eduTransfer+=edu>=5?50:25;else if(clb>=7)eduTransfer+=edu>=5?25:13;}
- if(eduHigh&&can>=1)eduTransfer+=edu>=5?50:25;
+ if(eduHigh){let lang=clb>=9?(edu>=5?50:25):clb>=7?(edu>=5?25:13):0;let canadian=can>=1?(edu>=5?50:25):0;eduTransfer=Math.min(50,lang+canadian);}
  let foreignTransfer=0;
- if(foreign>=1&&clb>=9)foreignTransfer+=foreign===3?50:25;
- else if(foreign>=1&&clb>=7)foreignTransfer+=foreign===3?25:13;
- if(foreign>=1&&can>=1)foreignTransfer+=foreign===3?50:25;
- const tradeTransfer=val('trade')&&clb>=5?25:0;
+ if(foreign>=1){let lang=clb>=9?(foreign===3?50:25):clb>=7?(foreign===3?25:13):0;let canadian=can>=1?(foreign===3?50:25):0;foreignTransfer=Math.min(50,lang+canadian);}
+ const tradeTransfer=val('trade')?(clb>=7?50:clb>=5?25:0):0;
  const transfer=Math.min(100,eduTransfer+foreignTransfer+tradeTransfer);
  const core=coreAge+coreEdu+coreLang+coreCan;
  const extras=secondPts+canEdu+french+sibling+pnp;
