@@ -198,8 +198,9 @@ function updateLabourStatus(sp,can,canMonths){
  let months2=multiple?Math.max(0,Math.floor(Number($('monthsTier2').value)||0)):(workTier===2?workMonths:0);
  let months1=multiple?Math.max(0,Math.floor(Number($('monthsTier1').value)||0)):(workTier===1?workMonths:0);
  const totalHighWageMonths=months3+months2+months1;
- const durationInconsistent=totalHighWageMonths>canMonths;
- const bonus=durationInconsistent?0:(months3>=12?70:(months3+months2>=12?40:(totalHighWageMonths>=12?20:0)));
+ // canMonths is a completed-year category (1 year, 2 years, etc.), not an exact month count.
+ // Do not reject 13+ qualifying high-wage months just because the selected CRS category is 12 months.
+ const bonus=months3>=12?70:(months3+months2>=12?40:(totalHighWageMonths>=12?20:0));
  const workLength=canWorkPoints(can,sp),cap=sp?140:150,workPath=Math.min(cap,workLength+bonus);
  const offerCode=$('offerNocCode').value.trim(),offerTier=nocTier.get(offerCode)||0,offerConfirmed=val('jobOfferStatus')===1;
  const workStatus=$('workNocStatus'),nocStatus=$('offerNocStatus');
@@ -211,8 +212,7 @@ function updateLabourStatus(sp,can,canMonths){
  else nocStatus.textContent='Listed as Level '+offerTier+'. Potential job-offer points: '+[0,50,70,100][offerTier]+'. This checks the occupation only; the offer must also qualify.';
  const offerPath=offerConfirmed&&offerTier?[0,50,70,100][offerTier]:0,points=Math.max(workPath,offerPath);
  const pathway=offerPath>workPath?'Qualifying job offer':workPath>offerPath?'Canadian work experience':points?'Both pathways tie':'Neither pathway adds points';
- let message=durationInconsistent?'Check your inputs: eligible high-wage months exceed your total qualifying Canadian work experience. The high-wage bonus is not counted until corrected. ':'';
- message+='Canadian-work route: '+workLength+' duration points + '+bonus+' high-wage bonus = '+workPath+'. ';
+ let message='Canadian-work route: '+workLength+' duration points + '+bonus+' high-wage bonus = '+workPath+'. ';
  if(!workTier&&workMonths>0&&!multiple)message+='The selected/unspecified Canadian-work NOC is not on the eligible high-wage list, so no high-wage bonus applies. Qualifying Canadian work in TEER 0–3 can still earn work-length points. ';
  if(offerConfirmed&&!offerCode)message+='You confirmed a qualifying offer but have not selected its NOC, so offer points cannot be assessed. ';
  else if(offerCode&&!offerTier)message+='The selected offer NOC is not eligible for job-offer points under this factor. ';
